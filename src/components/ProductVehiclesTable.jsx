@@ -23,6 +23,7 @@ import {
   KeyboardArrowUp,
   DirectionsCar
 } from '@mui/icons-material';
+import carBase from '../assets/carimage.png'
 
 const vehicleData = [
   { id: 29, make: 'BMW', model: '3 Series', year: 2025, trim: 'M340i', description: 'M340i 4dr Sedan (3.0L 6cyl Turbo gas/electric mild hybrid 8A)' },
@@ -107,13 +108,11 @@ const MobileVehicleCard = ({ vehicle }) => {
 };
 
 // Desktop Table Row Component
-const DesktopTableRow = ({ vehicle }) => {
+const DesktopTableRow = ({ vehicle, index }) => {
   return (
     <TableRow 
       sx={{ 
-        '&:nth-of-type(odd)': { 
-          backgroundColor: 'rgba(255, 255, 255, 0.05)' 
-        },
+        backgroundColor: index % 2 !== 0 ? '#50526A' : '#252832', // Even rows: #50526A, Odd rows: #252832
         '&:hover': {
           backgroundColor: 'rgba(187, 134, 252, 0.1)'
         }
@@ -132,15 +131,7 @@ const DesktopTableRow = ({ vehicle }) => {
         {vehicle.year}
       </TableCell>
       <TableCell sx={{ color: 'white', borderBottom: '1px solid #444' }}>
-        <Chip 
-          label={vehicle.trim}
-          size="small"
-          sx={{ 
-            backgroundColor: '#bb86fc',
-            color: 'white',
-            fontWeight: 'bold'
-          }}
-        />
+        {vehicle.trim}
       </TableCell>
       <TableCell sx={{ color: 'white', borderBottom: '1px solid #444', maxWidth: 300 }}>
         <Typography variant="body2" sx={{ 
@@ -179,9 +170,9 @@ const ProductVehiclesTable = () => {
             justifyContent: 'center'
           }}
         >
-          <DirectionsCar sx={{ color: 'white', fontSize: 18 }} />
+          <img src={carBase} sx={{ color: 'white', fontSize: 18 }} />
         </Box>
-        <Typography variant="h5" sx={{ color: 'white', fontWeight: 'bold' }}>
+        <Typography variant="h6" sx={{ color: 'white', fontWeight: '600' }}>
           Product Vehicles
         </Typography>
       </Box>
@@ -198,52 +189,51 @@ const ProductVehiclesTable = () => {
         <TableContainer 
           component={Paper} 
           sx={{ 
-            backgroundColor: '#2d2d2d',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)'
+            backgroundColor: '#2F323C',
           }}
         >
           <Table>
             <TableHead>
-              <TableRow sx={{ backgroundColor: '#1a1a1a' }}>
+              <TableRow sx={{ backgroundColor: '#4C4381' }}> {/* Changed header background color */}
                 <TableCell sx={{ 
-                  color: '#bb86fc', 
+                  color: '#FFF', // Changed text color to white for better contrast
                   fontWeight: 'bold',
-                  borderBottom: '2px solid #bb86fc'
+                  borderBottom: '2px solid #4F4686'
                 }}>
                   Identifier
                 </TableCell>
                 <TableCell sx={{ 
-                  color: '#bb86fc', 
+                  color: '#FFF', // Changed text color to white for better contrast
                   fontWeight: 'bold',
-                  borderBottom: '2px solid #bb86fc'
+                  borderBottom: '2px solid #4F4686'
                 }}>
                   Make
                 </TableCell>
                 <TableCell sx={{ 
-                  color: '#bb86fc', 
+                  color: '#FFF', // Changed text color to white for better contrast
                   fontWeight: 'bold',
-                  borderBottom: '2px solid #bb86fc'
+                  borderBottom: '2px solid #4F4686'
                 }}>
                   Model
                 </TableCell>
                 <TableCell sx={{ 
-                  color: '#bb86fc', 
+                  color: '#FFF', // Changed text color to white for better contrast
                   fontWeight: 'bold',
-                  borderBottom: '2px solid #bb86fc'
+                  borderBottom: '2px solid #4F4686'
                 }}>
                   Year
                 </TableCell>
                 <TableCell sx={{ 
-                  color: '#bb86fc', 
+                  color: '#FFF', // Changed text color to white for better contrast
                   fontWeight: 'bold',
-                  borderBottom: '2px solid #bb86fc'
+                  borderBottom: '2px solid #4F4686'
                 }}>
                   Trim
                 </TableCell>
                 <TableCell sx={{ 
-                  color: '#bb86fc', 
+                  color: '#FFF', // Changed text color to white for better contrast
                   fontWeight: 'bold',
-                  borderBottom: '2px solid #bb86fc'
+                  borderBottom: '2px solid #4F4686'
                 }}>
                   Trim Description
                 </TableCell>
@@ -251,7 +241,7 @@ const ProductVehiclesTable = () => {
             </TableHead>
             <TableBody>
               {vehicleData.map((vehicle, index) => (
-                <DesktopTableRow key={`${vehicle.id}-${index}`} vehicle={vehicle} />
+                <DesktopTableRow key={`${vehicle.id}-${index}`} vehicle={vehicle} index={index} />
               ))}
             </TableBody>
           </Table>

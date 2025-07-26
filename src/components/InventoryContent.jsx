@@ -12,13 +12,18 @@ import {
   Paper,
   Chip,
 } from '@mui/material';
-import { Edit, InfoOutlined } from '@mui/icons-material';
+import { DirectionsCar, Edit, InfoOutlined } from '@mui/icons-material';
 import PRODUCT_IMG from '../assets/productbase.png'
 import QR_CODE_IMG from '../assets/qrcode.png'
+import settingbase from '../assets/settingbase.png'
 
 // Replace with your actual image paths
 // const PRODUCT_IMG = '/assets/images/productbase.png';
 const QR_IMG = '/assets/images/qr-code.png';
+import edit from '../assets/edit.png'
+import refresh from '../assets/refresh.png'
+import exportsImg from '../assets/export.png'
+import opened from '../assets/opened.png'
 
 // Reusable component for each property line
 const PropertyLine = ({ label, value, valueColor }) => (
@@ -79,20 +84,43 @@ export default function ProductBasePropertiesCard() {
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-          <InfoOutlined sx={{ color: '#b4b8d5' }} />
-          <Typography variant="h6" sx={{ fontWeight: 700, fontSize: '18px' }}>
+           <Box 
+                     sx={{ 
+                       backgroundColor: '#bb86fc',
+                       borderRadius: '50%',
+                       width: 32,
+                       height: 32,
+                       display: 'flex',
+                       alignItems: 'center',
+                       justifyContent: 'center'
+                     }}
+                   >
+                     <img src={settingbase} sx={{ color: 'white', fontSize: 18 }} />
+                   </Box>
+          <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '16px' }}>
             Product Base Properties
           </Typography>
         </Box>
-        <IconButton size="small" sx={{ color: '#b4b8d5' }}>
-          <Edit sx={{ fontSize: '20px' }} />
-        </IconButton>
+        <Box sx={{ display: 'flex', gap: '10px', ml: 'auto' }}>
+    <IconButton size="small" sx={{ color: '#b4b8d5' }}>
+      <img src={refresh} alt="refresh" />
+    </IconButton>
+    <IconButton size="small" sx={{ color: '#b4b8d5' }}>
+      <img src={exportsImg} alt="export" />
+    </IconButton>
+    <IconButton size="small" sx={{ color: '#b4b8d5' }}>
+      <img src={edit} alt="edit" />
+    </IconButton>
+    <IconButton size="small" sx={{ color: '#b4b8d5' }}>
+      <img src={opened} alt="opened" />
+    </IconButton>
+  </Box>
       </Box>
 
       {/* <Divider sx={{ bgcolor: 'rgba(255, 255, 255, 0.1)' }} /> */}
 
       {/* Card Body with Equal 4-Column Layout */}
-      <CardContent sx={{ p: 3 }}>
+      <CardContent sx={{ p: 3,pt:0 }}>
         <Grid container spacing={3}>
           
           {/* Column 1: Image & Details */}
@@ -101,7 +129,8 @@ export default function ProductBasePropertiesCard() {
               <Box
                 sx={{
                   borderRadius: 2,
-                  border: `1px solid gray`,
+                  bgcolor:'#373A44',
+                  border: `1px solid #4e5057`,
                   p: 2,
                   mb: 2,
                   display: 'flex',
@@ -211,25 +240,25 @@ export default function ProductBasePropertiesCard() {
               <PropertyLine label="Warranty" value="05 Years 10WAR-02" />
             </Box>
           </Grid>
-           <Box mt={4}>
-        <Typography variant="h6" color="grey.300" gutterBottom>
+           <Box mt={0}>
+        <Typography variant="body1" color="grey.300"  sx={{fontSize: '12px',fontStyle: 'normal',fontWeight: 400}}>
           Description
         </Typography>
-        <Typography variant="body1" sx={{ color: 'white', mb: 3 }}>
+        <Typography variant="body2" sx={{ color: 'white', mb: 3 }}>
           Lorem ipsum dolor sit amet. Et molestiae fuga id consequatur quia qui aliquid volutpa.
         </Typography>
 
-        <Typography variant="h6" color="grey.300" gutterBottom>
+        <Typography variant="body1" color="grey.300" gutterBottom sx={{fontSize: '12px',fontStyle: 'normal',fontWeight: 400}}>
           Long Description
         </Typography>
-        <Typography variant="body1" sx={{ color: 'white', mb: 3 }}>
+        <Typography variant="body2" sx={{ color: 'white', mb: 3 }}>
           Lorem ipsum dolor sit amet. Et molestiae fuga id consequatur quia qui aliquid voluptas. Aut praesentium corrupti est consequatur eligendi rem ratione officia est consequuntur Quis ut sint unde.
         </Typography>
 
-        <Typography variant="h6" color="grey.300" gutterBottom>
+        <Typography variant="body1" color="grey.300" gutterBottom sx={{fontSize: '12px',fontStyle: 'normal',fontWeight: 400}}>
           Marketing Description
         </Typography>
-        <Typography variant="body1" sx={{ color: 'white' }}>
+        <Typography variant="body2" sx={{ color: 'white' }}>
           Lorem ipsum dolor sit amet. Et molestiae fuga id consequatur quia qui aliquid voluptas. Aut praesentium corrupti est consequatur eligendi rem ratione officia est consequuntur Quis ut sint unde.
         </Typography>
       </Box>

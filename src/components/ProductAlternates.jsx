@@ -1,51 +1,123 @@
 import React from 'react';
-import { Card, Box, Typography, useMediaQuery, Grid } from '@mui/material';
+import { Card, Box, Typography, Grid, IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import settingbase from '../assets/settingbase.png'
 
-const alternates = [
-  { name: "Dual", img: "/images/dual.png" },
-  { name: "Hands free", img: "/images/handsfree.png" },
-  { name: "Scanlock", img: "/images/scanlock.png" },
-  { name: "Single", img: "/images/single.png" },
-  { name: "Core-R", img: "/images/core-r.png" },
-  { name: "Core-S", img: "/images/core-s.png" },
-  { name: "Summit", img: "/images/summit.png" },
-  { name: "Surface Mount", img: "/images/surface-mount.png" },
-  { name: "L10", img: "/images/l10.png" }
-];
-
-export default function ProductAlternates() {
-  const isMobile = useMediaQuery('(max-width:900px)');
+export default function ProductAlternates({ alternates, title }) {
   return (
-    <Card sx={{
-      bgcolor: '#23243b',
-      borderRadius: 2.5,
-      p: 2,
-      mb: 2,
-      color: '#fff',
-      boxShadow: 'none',
-    }}>
-      <Typography variant="subtitle1" sx={{ color: '#b997ff', mb: 2, fontWeight: 600 }}>
-        Product Alternates
-      </Typography>
-      <Grid container spacing={2}>
+    <Card
+      sx={{
+        bgcolor: '#373A44',
+        borderRadius: 2.5,
+        p: 2,
+        mb: 2,
+        mt:2,
+        color: '#fff',
+        boxShadow: 'none',
+        position: 'relative',
+        overflow: 'visible',
+      }}
+    >
+      {/* Top Icons Row */}
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          mb: 1.5,
+          position: 'relative',
+        }}
+      >
+        {/* Top-left Icon */}
+       <Box 
+                           sx={{ 
+                             backgroundColor: '#bb86fc',
+                             borderRadius: '50%',
+                             width: 32,
+                             height: 32,
+                             display: 'flex',
+                             alignItems: 'center',
+                             justifyContent: 'center'
+                           }}
+                         >
+                           <img src={settingbase} sx={{ color: 'white', fontSize: 18 }} />
+                         </Box>
+        {/* Title, centered with flex-grow */}
+        <Typography
+          variant="subtitle1"
+          sx={{
+            flexGrow: 1,
+            // color: '#b997ff',
+            fontWeight: 600,
+            // textAlign: 'center',
+            
+            ml:1, // adjusts for left icon width, tune as needed
+            fontSize: 17,
+          }}
+        >
+          {title}
+        </Typography>
+        {/* Top-right Icon */}
+        <IconButton sx={{ color: "#b997ff", p: '6px' }}>
+          <EditIcon />
+        </IconButton>
+      </Box>
+      {/* Grid of cards */}
+      <Grid
+        container
+        spacing={{ xs: 2, md: 2.5 }}
+        columns={{ xs: 2, sm: 3, md: 9 }}
+      >
         {alternates.map((alt) => (
-          <Grid item xs={6} sm={4} md={2} key={alt.name}>
+          <Grid
+            item
+            xs={1}
+            sm={1}
+            md={1}
+            key={alt.name}
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'stretch',
+            }}
+          >
             <Box
               sx={{
-                bgcolor: '#16182c',
+                bgcolor: '#373A44',
+                border: '1px solid gray',
                 borderRadius: 2,
-                p: 1.5,
+                px: 1,
+                py: 1,
+                width: '100%',
+                minWidth: { xs: 80, md: 100 },
+                maxWidth: 150,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                justifyContent: 'center',
+                flexGrow: 1,
               }}
             >
               <img
                 src={alt.img}
                 alt={alt.name}
-                style={{ width: 50, height: 50, objectFit: 'contain', marginBottom: 8 }}
+                style={{
+                  width: 74,
+                  height: 47,
+                  objectFit: 'contain',
+                  marginBottom: 9,
+                  display: 'block'
+                }}
               />
-              <Typography sx={{ fontSize: 13, color: '#e8e8fa' }}>{alt.name}</Typography>
+              <Typography sx={{
+                fontSize: 13,
+                color: '#e8e8fa',
+                textAlign: 'center',
+                fontWeight: 500,
+                whiteSpace: 'nowrap'
+              }}>
+                {alt.name}
+              </Typography>
             </Box>
           </Grid>
         ))}

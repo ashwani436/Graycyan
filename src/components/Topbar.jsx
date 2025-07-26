@@ -21,9 +21,11 @@ import {
   Brightness4,
   Brightness7,
   Menu as MenuIcon,
+  Home as HomeIcon,
 } from "@mui/icons-material";
+import companyLogo from '../assets/Company Logo.png'; // adjust as needed
 
-const SIDEBAR_WIDTH = 260; // your sidebar width, adjust if needed
+const SIDEBAR_WIDTH = 180; // Your sidebar width
 
 export default function Topbar({
   darkMode = true,
@@ -34,10 +36,11 @@ export default function Topbar({
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [anchorEl, setAnchorEl] = useState(null);
 
+  // Profile menu handlers
   const handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleProfileMenuClose = () => setAnchorEl(null);
 
-  // Manage internal dark mode toggle if no external handler passed
+  // Internal dark mode toggle fallback
   const [internalDarkMode, setInternalDarkMode] = useState(darkMode);
   const handleThemeToggle = () => {
     if (onToggleDarkMode) {
@@ -51,52 +54,54 @@ export default function Topbar({
   return (
     <Box
       sx={{
-        width: "100%",
+        width: { xs: "100%", sm: `calc(100% - ${SIDEBAR_WIDTH}px)` },
+        ml: { xs: 0, sm: `${SIDEBAR_WIDTH}px` },
         position: "fixed",
         top: 0,
         left: 0,
         zIndex: theme.zIndex.drawer + 10,
       }}
     >
-      {/* Search Icon - Top Left Outside Banner */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: 8,
-          left: { xs: 8, sm: `${SIDEBAR_WIDTH + 24}px` }, // Align with sidebar
-          zIndex: theme.zIndex.drawer + 15,
-        }}
-      >
-       {!isMobile && (<Tooltip title="Search">
-          <IconButton
-            size="small"
-            sx={{
-              color: currentDarkMode ? "#8892b0" : "#666",
-              bgcolor: currentDarkMode
-                ? "rgba(15, 20, 32, 0.8)"
-                : "rgba(245, 245, 245, 0.8)",
-              backdropFilter: "blur(10px)",
-              border: `1px solid ${
-                currentDarkMode
-                  ? "rgba(255,255,255,0.1)"
-                  : "rgba(0,0,0,0.1)"
-              }`,
-              "&:hover": {
-                color: currentDarkMode ? "#64ffda" : "#1976d2",
-                bgcolor: currentDarkMode
-                  ? "rgba(15, 20, 32, 0.9)"
-                  : "rgba(245, 245, 245, 0.9)",
-              },
-              width: 36,
-              height: 36,
-            }}
-          >
-            <SearchIcon sx={{ fontSize: 18 }} />
-          </IconButton>
-        </Tooltip>)}
-      </Box>
+      {/* Search Icon - shown only on desktop */}
+      {!isMobile && (
+        <Box
+          sx={{
+            position: "absolute",
+            top: 8,
+            left: 8,
+            zIndex: theme.zIndex.drawer + 15,
+          }}
+        >
+          <Tooltip title="Search">
+            <IconButton
+              size="small"
+              sx={{
+                color: "#FFF",
+                bgcolor: currentDarkMode ? "#3B3D49" : "rgba(245, 245, 245, 0.8)",
+                backdropFilter: "blur(10px)",
+                border: `1px solid ${
+                  currentDarkMode
+                    ? "rgba(255,255,255,0.1)"
+                    : "rgba(0,0,0,0.1)"
+                }`,
+                "&:hover": {
+                  color: currentDarkMode ? "#64ffda" : "#1976d2",
+                  bgcolor: currentDarkMode
+                    ? "rgba(15, 20, 32, 0.9)"
+                    : "rgba(245, 245, 245, 0.9)",
+                },
+                ml: '20px',
+                width: 30,
+                height: 30,
+              }}
+            >
+              <SearchIcon sx={{ fontSize: 18 }} />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      )}
 
-      {/* Top icons row - aligned with sidebar */}
+      {/* Main AppBar */}
       <AppBar
         elevation={0}
         position="static"
@@ -113,15 +118,14 @@ export default function Topbar({
         <Toolbar
           sx={{
             minHeight: { xs: 56, sm: 48 },
-            ml: { xs: 0, sm: `${SIDEBAR_WIDTH}px` },
             px: { xs: 2, sm: 3 },
-            width: { xs: "100%", sm: `calc(100% - ${SIDEBAR_WIDTH}px)` },
+            width: "100%",
             justifyContent: { xs: "space-between", sm: "flex-end" },
             alignItems: "center",
             gap: { xs: 1, sm: 1.5 },
           }}
         >
-          {/* Mobile hamburger menu (only on mobile) */}
+          {/* Hamburger Menu button (mobile only) */}
           {isMobile && (
             <IconButton
               onClick={onMobileMenuToggle}
@@ -152,9 +156,7 @@ export default function Topbar({
             {/* Theme toggle */}
             <Tooltip
               title={
-                currentDarkMode
-                  ? "Switch to Light Mode"
-                  : "Switch to Dark Mode"
+                currentDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"
               }
             >
               <IconButton
@@ -216,7 +218,7 @@ export default function Topbar({
               </IconButton>
             </Tooltip>
 
-            {/* Language - hide on mobile */}
+            {/* Language - hidden on mobile */}
             {!isMobile && (
               <Tooltip title="Language">
                 <IconButton
@@ -238,7 +240,7 @@ export default function Topbar({
               </Tooltip>
             )}
 
-            {/* Help - hide on mobile */}
+            {/* Help - hidden on mobile */}
             {!isMobile && (
               <Tooltip title="Help">
                 <IconButton
@@ -287,13 +289,14 @@ export default function Topbar({
                   color: currentDarkMode ? "#64ffda" : "#1976d2",
                   fontSize: "14px",
                   fontWeight: 600,
+                  userSelect: 'none',
                 }}
               >
                 U
               </Avatar>
             </IconButton>
 
-            {/* Profile dropdown */}
+            {/* Profile Menu */}
             <Menu
               id="profile-menu"
               anchorEl={anchorEl}
@@ -330,31 +333,37 @@ export default function Topbar({
         </Toolbar>
       </AppBar>
 
-      {/* Banner section */}
-      
+      {/* Banner Section (Inventory + Breadcrumb) */}
       <Box
         sx={{
-          background:
-            "linear-gradient(180deg, #828FF0 15.15%, #1F244A 151.33%)",
-          ml: { xs: 0, sm: `${SIDEBAR_WIDTH}px` },
-          width: { xs: "100%", sm: `calc(100% - ${SIDEBAR_WIDTH}px)` },
+          background: "linear-gradient(180deg, #828FF0 15.15%, #1F244A 151.33%)",
+          ml: { xs: 0, sm: 0 }, // Since the parent already does ml
+          width: "100%",
           px: { xs: 2, sm: 4 },
           py: { xs: 2, sm: 1 },
-          borderBottom: `1px solid ${currentDarkMode ? "#4ecdc4" : "#5a67d8"}`,
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+          flexWrap: "wrap",
         }}
       >
-        
-        {/* Inventory title with icon */}
-        
-        <Box
+        {/* Home icon and content column */}
+        <HomeIcon
           sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 1,
-            mb: 0.5,
+            width: "40px",
+            height: "35px",
+            flexShrink: 0,
+            color: "#808DED",
+            mr: 2,
           }}
-        >
-        
+        />
+
+        <Box sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 0.5,
+          minWidth: 0,
+        }}>
           <Typography
             variant="h4"
             sx={{
@@ -363,51 +372,45 @@ export default function Topbar({
               fontSize: { xs: "16px", sm: "16px", md: "20px" },
               color: "#fafafa",
               letterSpacing: "0.5px",
-              lineHeight: 0.5,
-              marginTop:1
+              lineHeight: 1.2,
             }}
           >
             Inventory
           </Typography>
-        </Box>
 
-        {/* Breadcrumb with icons */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-        
-          <Typography
-            variant="body2"
-            sx={{
-              fontFamily: "'Open Sans', Arial, sans-serif",
-              fontWeight: 400,
-              fontSize: { xs: "11px", sm: "12px" },
-              color: "#ffffff",
-              letterSpacing: 0,
-              display: { xs: "none", sm: "block" },
-            }}
-          >
-            All Products
-          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, flexWrap: "wrap" }}>
+            <Typography
+              variant="body2"
+              sx={{
+                fontFamily: "'Open Sans', Arial, sans-serif",
+                fontWeight: 400,
+                fontSize: { xs: "11px", sm: "12px" },
+                color: "#ffffff",
+                letterSpacing: 0,
+                display: { xs: "none", sm: "block" },
+              }}
+            >
+              All Products
+            </Typography>
 
-          <Typography
-            sx={{ color: "#f8f8f8", fontWeight: 600, userSelect: "none" }}
-          >
-            &gt; {/* Separator */}
-          </Typography>
+            <Typography sx={{ color: "#f8f8f8", fontWeight: 600, userSelect: "none" }}>
+              &gt;
+            </Typography>
 
-          
-          <Typography
-            variant="body2"
-            sx={{
-              fontFamily: "'Open Sans', Arial, sans-serif",
-              fontWeight: 600,
-              fontSize: { xs: "11px", sm: "12px" },
-              color: "#f5b221",
-              letterSpacing: 0,
-              display: { xs: "none", sm: "block" },
-            }}
-          >
-            Surface Mount
-          </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                fontFamily: "'Open Sans', Arial, sans-serif",
+                fontWeight: 600,
+                fontSize: { xs: "11px", sm: "12px" },
+                color: "#f5b221",
+                letterSpacing: 0,
+                display: { xs: "none", sm: "block" },
+              }}
+            >
+              Surface Mount
+            </Typography>
+          </Box>
         </Box>
       </Box>
     </Box>

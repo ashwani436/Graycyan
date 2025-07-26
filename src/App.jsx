@@ -14,8 +14,24 @@ import ProductMetadataAttributes from "./components/ProductMetadataAttributes";
 import ProductAlternates from "./components/ProductAlternates";
 import ProductFinancials from "./components/ProductFinancials";
 import ProductVehiclesTable from "./components/ProductVehiclesTable";
+import pioneer from './assets/pioneer.png';
+// import handsfree from './assets/handsfree.png';
+import scanlock from './assets/scanlock.png';
 
 const drawerWidth = 20;
+
+const alternates = [
+  { name: "Dual", img: pioneer },
+  { name: "Hands free", img: scanlock },
+  { name: "Scanlock", img: pioneer },
+  { name: "Single", img: scanlock },
+  { name: "Core-R", img: pioneer },
+  { name: "Core-S", img: scanlock },
+  { name: "Summit", img: pioneer },
+  { name: "Surface Mount", img: scanlock },
+  { name: "L10", img: pioneer }
+];
+
 
 // Wrapper that adjusts margin for permanent sidebar on larger screens
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -40,6 +56,8 @@ export default function App() {
     setMobileOpen((prev) => !prev);
   };
 
+
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -48,18 +66,22 @@ export default function App() {
       <Sidebar mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} drawerWidth={drawerWidth} />
 
       {/* Topbar */}
-      <Topbar handleDrawerToggle={handleDrawerToggle} drawerWidth={drawerWidth} />
+      
 
       {/* Main content */}
       <Main open={true}>
+        <Topbar handleDrawerToggle={handleDrawerToggle} drawerWidth={drawerWidth} />
         <Toolbar />
         <InventoryContent />
         <ProductTrackingDetails />
+        <ProductMetadataAttributes />
         <ProductDimensionPower />
-      <ProductMetadataAttributes />
-      {/* <ProductAlternates /> */}
+     
+      <ProductFinancials />
       <ProductFinancials />
       <ProductVehiclesTable/>
+       <ProductAlternates alternates={alternates} title={`Product Alternates`}/>
+        <ProductAlternates alternates={alternates.slice(0,4)} title={`Product Accessories`}/>
       </Main>
     </Box>
   );

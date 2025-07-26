@@ -9,15 +9,19 @@ import {
 } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 
+import productTracking from '../assets/trackingDetails.png'
+import edit from '../assets/edit.png'
+import opened from '../assets/opened.png'
+
 const TrackingDetailItem = ({ batchNumber, serialNumber }) => (
   <Box
     sx={{
-      bgcolor: '#1c1d1e',
+      bgcolor: '#2F323C',
       borderRadius: 2,
       p: 2,
       display: 'flex',
       flexDirection: 'row',
-      gap: 1.5,
+      gap: 12,
       justifyContent:'space-between',
       border: '1px solid #6c6d74',
       width: '100%',
@@ -84,7 +88,6 @@ export default function ProductTrackingDetails() {
     { batchNumber: '2873416', serialNumber: '1124532' },
     { batchNumber: '2873416', serialNumber: '1124532' },
     { batchNumber: '2873416', serialNumber: '1124532' },
-    { batchNumber: '2873416', serialNumber: '1124532' },
   ];
 
   return (
@@ -110,27 +113,9 @@ export default function ProductTrackingDetails() {
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-          <Box
-            sx={{
-              width: 24,
-              height: 24,
-              bgcolor: '#64ffda',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: '12px',
-                fontWeight: 700,
-                color: '#1e2139',
-              }}
-            >
-              📋
-            </Typography>
-          </Box>
+         <IconButton size="small" sx={{ color: '#C346DD', background: 'linear-gradient(180deg, #C346DD 0%, #6C42FC 100%)'}}>
+             <img src={productTracking} alt="productTracking" />
+            </IconButton>
           <Typography
             sx={{
               fontWeight: 700,
@@ -144,18 +129,14 @@ export default function ProductTrackingDetails() {
           </Typography>
         </Box>
         
-        <IconButton 
-          size="small" 
-          sx={{ 
-            color: '#8892b0',
-            '&:hover': {
-              color: '#64ffda',
-              bgcolor: 'rgba(100, 255, 218, 0.04)',
-            }
-          }}
-        >
-          <Edit fontSize="small" />
-        </IconButton>
+         <Box sx={{ display: 'flex', gap: '10px', ml: 'auto' }}>
+          <IconButton size="small" sx={{ color: '#b4b8d5' }}>
+            <img src={edit} alt="edit" />
+          </IconButton>
+          <IconButton size="small" sx={{ color: '#b4b8d5' }}>
+            <img src={opened} alt="opened" />
+          </IconButton>
+        </Box>
       </Box>
 
       {/* Card Content */}
