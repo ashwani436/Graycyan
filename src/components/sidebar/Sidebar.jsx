@@ -27,7 +27,7 @@ import {
 } from '@mui/icons-material';
 import { styled, useTheme } from '@mui/material/styles';
 
-import companyLogo from '../../assets/company Logo.png';  // Adjust your path here
+import companyLogo from '../../assets/companyLogo.png';  // Adjust your path here
 
 // -------- MENU DATA ----------
 const menu = [

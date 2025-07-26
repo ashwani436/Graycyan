@@ -23,7 +23,7 @@ import {
   Menu as MenuIcon,
   Home as HomeIcon,
 } from "@mui/icons-material";
-import companyLogo from '../assets/Company Logo.png'; // adjust as needed
+import companyLogo from '../assets/CompanyLogo.png'; // adjust as needed
 
 const SIDEBAR_WIDTH = 180; // Your sidebar width
 
