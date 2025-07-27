@@ -9,14 +9,19 @@ import Topbar from "./components/Topbar";
 import InventoryContent from "./components/InventoryContent";
 // import InventoryCardsComponent from "./components/ProductTracking";
 import ProductTrackingDetails from "./components/TrackingDetailItem";
-import ProductDimensionPower from "./components/ProductDimensionPower";
-import ProductMetadataAttributes from "./components/ProductMetadataAttributes";
+// import ProductDimensionPower from "./components/ProductDimensionPower";
+// import ProductMetadataAttributes from "./components/ProductMetadataAttributes";
 import ProductAlternates from "./components/ProductAlternates";
 import ProductFinancials from "./components/ProductFinancials";
 import ProductVehiclesTable from "./components/ProductVehiclesTable";
 import pioneer from './assets/pioneer.png';
 // import handsfree from './assets/handsfree.png';
 import scanlock from './assets/scanlock.png';
+import ProductAssetManagement from "./components/ProductAsset";
+import ProductMetadataAttributes from "./components/productMetaData/ProductMetadataAttributes";
+import ProductBasePropertiesCard from "./components/productBaseProperty/ProductBasePropertiesCard";
+import ProductDimensionPower from "./components/productDimensionPower/ProductDimensionPower";
+import ProductOptions from "./components/productoptions/ProductOptions";
 
 const drawerWidth = 20;
 
@@ -31,6 +36,39 @@ const alternates = [
   { name: "Surface Mount", img: scanlock },
   { name: "L10", img: pioneer }
 ];
+
+ const items = [
+    { label: "Height", value: "31.75 cm" },
+    { label: "Width", value: "52 cm" },
+    { label: "Depth", value: "19.5 cm" },
+    { label: "Weight", value: "63 kg" },
+    { label: "Voltage", value: "12 V" },
+    { label: "Power Rating", value: "300 W" },
+  ];
+
+  const productFinancialData= [
+  {
+    "label": "Material Cost",
+    "value": "$175.23"
+  },
+  {
+    "label": "Labor Cost",
+    "value": "$291.46"
+  },
+  {
+    "label": "Process Cost",
+    "value": "$66.21"
+  },
+  {
+    "label": "Misc. Cost",
+    "value": "$15.49"
+  },
+  {
+    "label": "Last Price",
+    "value": "$1,875.23"
+  }
+]
+
 
 
 // Wrapper that adjusts margin for permanent sidebar on larger screens
@@ -72,17 +110,21 @@ export default function App() {
       <Main open={true}>
         <Topbar handleDrawerToggle={handleDrawerToggle} drawerWidth={drawerWidth} />
         <Toolbar />
-        <InventoryContent />
+        {/* <InventoryContent /> */}
+        <ProductBasePropertiesCard />
         <ProductTrackingDetails />
-        <ProductMetadataAttributes />
-        <ProductDimensionPower />
-     
-      <ProductFinancials />
-      <ProductFinancials />
+         <ProductMetadataAttributes/>
+        {/* <ProductDimensionPower /> */}
+        <ProductDimensionPower items={items} title={`Product Dimension and Power`}/>
+         <ProductDimensionPower items={productFinancialData} title={`Product Financials`}/>
+
       <ProductVehiclesTable/>
        <ProductAlternates alternates={alternates} title={`Product Alternates`}/>
         <ProductAlternates alternates={alternates.slice(0,4)} title={`Product Accessories`}/>
+        <ProductOptions/>
+        <ProductAssetManagement/>
       </Main>
+      
     </Box>
   );
 }

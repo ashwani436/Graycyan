@@ -1,0 +1,145 @@
+/* ProductDimensionPower.css */
+
+/* Desktop Layout - Items spread across full width */
+.dimension-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 6 columns for 6 items */
+  gap: 24px;
+  align-items: start;
+  width: 100%;
+}
+
+.dimension-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: 5px;
+  /* Center align for better distribution */
+}
+
+.dimension-label {
+  color: #FFF;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  /* line-height: 100%; 12px */
+  opacity: 0.8;
+  margin-bottom: -8px;
+}
+
+.dimension-value {
+  color: #FFF;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  
+  word-wrap: break-word;
+}
+
+/* Large Desktop (1200px and above) - Maintain 6 columns */
+@media screen and (min-width: 1200px) {
+  .dimension-grid {
+    gap: 32px;
+  }
+  
+  .dimension-item {
+    gap: 10px;
+  }
+}
+
+/* Desktop/Tablet (769px - 1199px) - 3 items per row, 2 rows */
+@media screen and (max-width: 1199px) and (min-width: 769px) {
+  .dimension-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 20px;
+    row-gap: 24px;
+  }
+  
+  .dimension-item {
+    text-align: left; /* Left align on smaller screens */
+  }
+}
+
+/* Mobile (768px and below) - 2 items per row */
+@media screen and (max-width: 768px) {
+    /* .product-title {
+         font-size: 10px;
+    } */
+  .dimension-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+    gap: 16px;
+    row-gap: 20px;
+  }
+  
+  .dimension-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid #4A4D5A;
+    border-radius: 8px;
+    padding: 12px;
+    gap: 6px;
+    text-align: left;
+  }
+  
+  .dimension-label {
+    font-size: 11px;
+  }
+  
+  .dimension-value {
+    font-size: 13px;
+  }
+}
+
+/* Small Mobile (480px and below) - Still 2 items per row but smaller */
+@media screen and (max-width: 480px) {
+  .dimension-grid {
+    gap: 12px;
+    row-gap: 16px;
+  }
+  
+  .dimension-item {
+    padding: 10px;
+    gap: 4px;
+  }
+  
+  .dimension-label {
+    font-size: 10px;
+  }
+  
+  .dimension-value {
+    font-size: 12px;
+    line-height: 110%;
+  }
+}
+
+/* Animation for better UX */
+.dimension-item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dimension-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Loading animation */
+.dimension-item {
+  animation: fadeInUp 0.3s ease forwards;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.dimension-item:nth-child(1) { animation-delay: 0.1s; }
+.dimension-item:nth-child(2) { animation-delay: 0.15s; }
+.dimension-item:nth-child(3) { animation-delay: 0.2s; }
+.dimension-item:nth-child(4) { animation-delay: 0.25s; }
+.dimension-item:nth-child(5) { animation-delay: 0.3s; }
+.dimension-item:nth-child(6) { animation-delay: 0.35s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

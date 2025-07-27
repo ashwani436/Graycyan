@@ -7,7 +7,6 @@ import {
   ListItemText,
   Collapse,
   Toolbar,
-  Typography,
   IconButton,
   Box,
   Divider,
@@ -23,11 +22,12 @@ import {
   LocalOffer,
   ExpandLess,
   ExpandMore,
-  Menu as MenuIcon
+  Menu as MenuIcon,
+  Close as CloseIcon
 } from '@mui/icons-material';
-import { styled, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 
-import companyLogo from '../../assets/companyLogo.png';  // Adjust your path here
+import companyLogo from '../../assets/companyLogo.png';
 
 // -------- MENU DATA ----------
 const menu = [
@@ -61,22 +61,8 @@ const menu = [
 // -------- STYLES -------------
 const SIDEBAR_WIDTH = 180;
 
-// Hide scrollbar cross-browser
-const DrawerPaper = styled('div')({
-  background: '#0A0C1B',
-  width: SIDEBAR_WIDTH,
-  height: 3778, // as per your spec
-  flexShrink: 0,
-  color: '#FFF',
-  borderRight: 'none',
-  boxSizing: 'border-box',
-  overflowY: 'auto',
-  scrollbarWidth: 'none',
-  '&::-webkit-scrollbar': { display: 'none' }
-});
-
-// Company logo (always on top)
-const logo = (
+// Company logo
+const Logo = () => (
   <Box sx={{
     py: 2.5,
     textAlign: 'center',
@@ -85,7 +71,6 @@ const logo = (
     width: '100%',
     bgcolor: 'transparent'
   }}>
-    {/* Image inside Typography for accessibility and spacing */}
     <img
       src={companyLogo}
       alt="Company Logo"
@@ -95,7 +80,7 @@ const logo = (
   </Box>
 );
 
-// Recursive menu rendering, with icons styled
+// Recursive menu rendering
 function RecursiveMenu({ items, depth = 0, expanded, toggle, isMobile, closeDrawer }) {
   return items.map((item, idx) => {
     const key = item.key ?? `${depth}-${idx}`;
@@ -127,7 +112,6 @@ function RecursiveMenu({ items, depth = 0, expanded, toggle, isMobile, closeDraw
             lineHeight: 1.2,
           }}
         >
-          {/* Icon styling on all menu items: fixed size & no shrink */}
           {item.icon && (
             <ListItemIcon
               sx={{
@@ -190,11 +174,9 @@ function RecursiveMenu({ items, depth = 0, expanded, toggle, isMobile, closeDraw
   });
 }
 
-// ----------------------------------------------
-
 export default function Sidebar() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [expanded, setExpanded] = useState({});
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -203,62 +185,141 @@ export default function Sidebar() {
     []
   );
 
+  const handleDrawerToggle = () => {
+    console.log('Hamburger clicked, current state:', mobileOpen); // Debug log
+    setMobileOpen(prev => !prev);
+  };
+
+  const closeDrawer = () => {
+    console.log('Closing drawer'); // Debug log
+    setMobileOpen(false);
+  };
+
+  console.log('isMobile:', isMobile, 'mobileOpen:', mobileOpen); // Debug log
+
   return (
     <>
+      {/* Hamburger Menu Button - Always visible on mobile */}
       {isMobile && (
         <IconButton
-          onClick={() => setMobileOpen(true)}
+          onClick={handleDrawerToggle}
           sx={{
             position: 'fixed',
-            top: 14,
-            left: 10,
-            zIndex: theme.zIndex.drawer + 1,
+            top: 5,
+            left: 16,
+            zIndex: 9999, // Very high z-index
             bgcolor: '#23284b',
             color: '#fff',
-            '&:hover': { bgcolor: '#282c49' }
+            '&:hover': { bgcolor: '#282c49' },
+            width: 48,
+            height: 48,
+            boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
           }}
         >
           <MenuIcon />
         </IconButton>
       )}
 
-      <Drawer
-        variant={isMobile ? 'temporary' : 'permanent'}
-        open={isMobile ? mobileOpen : true}
-        onClose={() => setMobileOpen(false)}
-        PaperProps={{ component: DrawerPaper }}
-        ModalProps={{ keepMounted: true }}
-        sx={{
-          width: SIDEBAR_WIDTH,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
+      {/* Desktop Sidebar */}
+      {!isMobile && (
+        <Drawer
+          variant="permanent"
+          sx={{
             width: SIDEBAR_WIDTH,
-            boxSizing: 'border-box',
-            background: '#0A0C1B',
-            height: 3778 // fixed height per user spec
-          }
-        }}
-      >
-        <Toolbar sx={{ minHeight: 48, px: 0 }}>{logo}</Toolbar>
-        <Box sx={{
-          flexGrow: 1,
-          overflowY: 'auto',
-          height: '100%',
-          scrollbarWidth: 'none',
-          '&::-webkit-scrollbar': { display: 'none' }
-        }}>
-          <List dense disablePadding sx={{ py: 1 }}>
-            <RecursiveMenu
-              items={menu}
-              expanded={expanded}
-              toggle={toggle}
-              isMobile={isMobile}
-              closeDrawer={() => setMobileOpen(false)}
-            />
-          </List>
-        </Box>
-        <Divider sx={{ bgcolor: '#232856' }} />
-      </Drawer>
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: SIDEBAR_WIDTH,
+              boxSizing: 'border-box',
+              background: '#0A0C1B',
+              color: '#FFF',
+              borderRight: 'none',
+              height: '100vh',
+              overflowY: 'auto',
+              scrollbarWidth: 'none',
+              '&::-webkit-scrollbar': { display: 'none' }
+            }
+          }}
+        >
+          <Toolbar sx={{ minHeight: 48, px: 0 }}>
+            <Logo />
+          </Toolbar>
+          <Box sx={{
+            flexGrow: 1,
+            overflowY: 'auto',
+            height: '100%',
+            scrollbarWidth: 'none',
+            '&::-webkit-scrollbar': { display: 'none' }
+          }}>
+            <List dense disablePadding sx={{ py: 1 }}>
+              <RecursiveMenu
+                items={menu}
+                expanded={expanded}
+                toggle={toggle}
+                isMobile={false}
+                closeDrawer={closeDrawer}
+              />
+            </List>
+          </Box>
+          <Divider sx={{ bgcolor: '#232856' }} />
+        </Drawer>
+      )}
+
+      {/* Mobile Sidebar */}
+      {isMobile && (
+        <Drawer
+          variant="temporary"
+          anchor="left"
+          open={mobileOpen}
+          onClose={closeDrawer}
+          sx={{
+            '& .MuiDrawer-paper': {
+              width: SIDEBAR_WIDTH,
+              boxSizing: 'border-box',
+              background: '#0A0C1B',
+              color: '#FFF',
+              borderRight: 'none',
+              height: '100vh',
+              overflowY: 'auto',
+              scrollbarWidth: 'none',
+              '&::-webkit-scrollbar': { display: 'none' }
+            },
+            '& .MuiBackdrop-root': {
+              backgroundColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }}
+          ModalProps={{
+            keepMounted: true,
+            disablePortal: false
+          }}
+        >
+          {/* Close button in mobile */}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 1 }}>
+            <Logo />
+            <IconButton onClick={closeDrawer} sx={{ color: '#fff' }}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          
+          <Box sx={{
+            flexGrow: 1,
+            overflowY: 'auto',
+            height: '100%',
+            scrollbarWidth: 'none',
+            '&::-webkit-scrollbar': { display: 'none' }
+          }}>
+            <List dense disablePadding sx={{ py: 1 }}>
+              <RecursiveMenu
+                items={menu}
+                expanded={expanded}
+                toggle={toggle}
+                isMobile={true}
+                closeDrawer={closeDrawer}
+              />
+            </List>
+          </Box>
+          <Divider sx={{ bgcolor: '#232856' }} />
+        </Drawer>
+      )}
     </>
   );
 }

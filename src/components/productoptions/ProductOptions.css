@@ -1,0 +1,60 @@
+/* Additional responsive styles */
+@media (max-width: 600px) {
+  .product-options-container {
+    margin: 8px;
+    padding: 12px;
+  }
+  .section-boxstyles{
+    border-radius: 8px;
+    background: #2d53cd;
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.12);
+  }
+  
+  .color-grid {
+    gap: 8px;
+  }
+  
+  .dimension-chips {
+    gap: 4px;
+  }
+  
+  .control-chips {
+    gap: 4px;
+  }
+}
+
+@media (max-width: 400px) {
+  .product-options-container {
+    margin: 4px;
+    padding: 8px;
+  }
+  
+  .section-title {
+    font-size: 0.875rem;
+  }
+  
+  .color-button {
+    width: 32px !important;
+    height: 32px !important;
+  }
+}
+
+/* Custom scrollbar for mobile */
+@media (max-width: 600px) {
+  .dimension-chips::-webkit-scrollbar,
+  .control-chips::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  .dimension-chips::-webkit-scrollbar-track,
+  .control-chips::-webkit-scrollbar-track {
+    background: #3a3d4d;
+    border-radius: 2px;
+  }
+  
+  .dimension-chips::-webkit-scrollbar-thumb,
+  .control-chips::-webkit-scrollbar-thumb {
+    background: #9c27b0;
+    border-radius: 2px;
+  }
+}

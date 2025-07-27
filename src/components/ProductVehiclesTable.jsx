@@ -24,6 +24,10 @@ import {
   DirectionsCar
 } from '@mui/icons-material';
 import carBase from '../assets/carimage.png'
+import productTracking from '../assets/trackingDetails.png'
+import addIcon from '../assets/addIcon.png'
+import opened from '../assets/opened.png'
+
 
 const vehicleData = [
   { id: 29, make: 'BMW', model: '3 Series', year: 2025, trim: 'M340i', description: 'M340i 4dr Sedan (3.0L 6cyl Turbo gas/electric mild hybrid 8A)' },
@@ -113,9 +117,6 @@ const DesktopTableRow = ({ vehicle, index }) => {
     <TableRow 
       sx={{ 
         backgroundColor: index % 2 !== 0 ? '#50526A' : '#252832', // Even rows: #50526A, Odd rows: #252832
-        '&:hover': {
-          backgroundColor: 'rgba(187, 134, 252, 0.1)'
-        }
       }}
     >
       <TableCell sx={{ color: 'white', borderBottom: '1px solid #444' }}>
@@ -159,23 +160,24 @@ const ProductVehiclesTable = () => {
     }}>
       {/* Header */}
       <Box display="flex" alignItems="center" gap={1} mb={3}>
-        <Box 
-          sx={{ 
-            backgroundColor: '#bb86fc',
-            borderRadius: '50%',
-            width: 32,
-            height: 32,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <img src={carBase} sx={{ color: 'white', fontSize: 18 }} />
-        </Box>
-        <Typography variant="h6" sx={{ color: 'white', fontWeight: '600' }}>
-          Product Vehicles
-        </Typography>
-      </Box>
+       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+               <IconButton size="small" sx={{ color: '#C346DD', background: 'linear-gradient(180deg, #C346DD 0%, #6C42FC 100%)'}}>
+                   <img src={productTracking} alt="productTracking" />
+                  </IconButton>
+                <Typography className='card-heading'>
+                 Product Vehicles
+                </Typography>
+              </Box>
+              
+               <Box sx={{ display: 'flex', gap: '10px', ml: 'auto' }}>
+                <IconButton size="small" sx={{ color: '#b4b8d5' }}>
+                  <img src={addIcon} alt="edit" />
+                </IconButton>
+                <IconButton size="small" sx={{ color: '#b4b8d5' }}>
+                  <img src={opened} alt="opened" />
+                </IconButton>
+              </Box>
+            </Box>
 
       {/* Mobile View */}
       {isMobile ? (

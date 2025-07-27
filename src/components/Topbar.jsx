@@ -23,7 +23,6 @@ import {
   Menu as MenuIcon,
   Home as HomeIcon,
 } from "@mui/icons-material";
-import companyLogo from '../assets/CompanyLogo.png'; // adjust as needed
 
 const SIDEBAR_WIDTH = 180; // Your sidebar width
 
@@ -36,19 +35,10 @@ export default function Topbar({
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [anchorEl, setAnchorEl] = useState(null);
 
-  // Profile menu handlers
   const handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleProfileMenuClose = () => setAnchorEl(null);
-
-  // Internal dark mode toggle fallback
   const [internalDarkMode, setInternalDarkMode] = useState(darkMode);
-  const handleThemeToggle = () => {
-    if (onToggleDarkMode) {
-      onToggleDarkMode();
-    } else {
-      setInternalDarkMode((prev) => !prev);
-    }
-  };
+
   const currentDarkMode = onToggleDarkMode ? darkMode : internalDarkMode;
 
   return (
@@ -62,7 +52,6 @@ export default function Topbar({
         zIndex: theme.zIndex.drawer + 10,
       }}
     >
-      {/* Search Icon - shown only on desktop */}
       {!isMobile && (
         <Box
           sx={{
@@ -160,7 +149,6 @@ export default function Topbar({
               }
             >
               <IconButton
-                onClick={handleThemeToggle}
                 size="small"
                 sx={{
                   color: currentDarkMode ? "#8892b0" : "#666",
@@ -354,7 +342,7 @@ export default function Topbar({
             height: "35px",
             flexShrink: 0,
             color: "#808DED",
-            mr: 2,
+            mr: 2, 
           }}
         />
 
@@ -363,6 +351,7 @@ export default function Topbar({
           flexDirection: "column",
           gap: 0.5,
           minWidth: 0,
+          marginLeft:'-5px'
         }}>
           <Typography
             variant="h4"
@@ -378,7 +367,7 @@ export default function Topbar({
             Inventory
           </Typography>
 
-          <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, flexWrap: "wrap" }}>
+         {!isMobile && ( <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, flexWrap: "wrap" }}>
             <Typography
               variant="body2"
               sx={{
@@ -411,6 +400,7 @@ export default function Topbar({
               Surface Mount
             </Typography>
           </Box>
+         )}
         </Box>
       </Box>
     </Box>

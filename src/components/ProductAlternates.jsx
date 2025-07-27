@@ -2,6 +2,9 @@ import React from 'react';
 import { Card, Box, Typography, Grid, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import settingbase from '../assets/settingbase.png'
+import productTracking from '../assets/trackingDetails.png'
+import edit from '../assets/edit.png'
+import opened from '../assets/opened.png'
 
 export default function ProductAlternates({ alternates, title }) {
   return (
@@ -19,49 +22,25 @@ export default function ProductAlternates({ alternates, title }) {
       }}
     >
       {/* Top Icons Row */}
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          mb: 1.5,
-          position: 'relative',
-        }}
-      >
         {/* Top-left Icon */}
-       <Box 
-                           sx={{ 
-                             backgroundColor: '#bb86fc',
-                             borderRadius: '50%',
-                             width: 32,
-                             height: 32,
-                             display: 'flex',
-                             alignItems: 'center',
-                             justifyContent: 'center'
-                           }}
-                         >
-                           <img src={settingbase} sx={{ color: 'white', fontSize: 18 }} />
-                         </Box>
+    
         {/* Title, centered with flex-grow */}
-        <Typography
-          variant="subtitle1"
-          sx={{
-            flexGrow: 1,
-            // color: '#b997ff',
-            fontWeight: 600,
-            // textAlign: 'center',
-            
-            ml:1, // adjusts for left icon width, tune as needed
-            fontSize: 17,
-          }}
-        >
-          {title}
-        </Typography>
-        {/* Top-right Icon */}
-        <IconButton sx={{ color: "#b997ff", p: '6px' }}>
-          <EditIcon />
-        </IconButton>
-      </Box>
+             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb:3 }}>
+                            <IconButton size="small" sx={{ color: '#C346DD', background: 'linear-gradient(180deg, #C346DD 0%, #6C42FC 100%)'}}>
+                                 <img src={productTracking} alt="productTracking" />
+                                </IconButton>
+                          <Typography className='card-heading'>
+                            {title}
+                          </Typography>
+                           <Box sx={{ display: 'flex', gap: '10px', ml: 'auto' }}>
+                                    <IconButton size="small" sx={{ color: '#b4b8d5' }}>
+                                      <img src={edit} alt="edit" />
+                                    </IconButton>
+                                    <IconButton size="small" sx={{ color: '#b4b8d5' }}>
+                                      <img src={opened} alt="opened" />
+                                    </IconButton>
+                                  </Box>
+                          </Box>
       {/* Grid of cards */}
       <Grid
         container

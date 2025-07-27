@@ -108,23 +108,15 @@ export default function ProductTrackingDetails() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          p: 3,
-          borderBottom: '1px solid #2a2f4a',
+          p: 2,
+          // borderBottom: '1px solid #2a2f4a',
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
          <IconButton size="small" sx={{ color: '#C346DD', background: 'linear-gradient(180deg, #C346DD 0%, #6C42FC 100%)'}}>
              <img src={productTracking} alt="productTracking" />
             </IconButton>
-          <Typography
-            sx={{
-              fontWeight: 700,
-              fontSize: '18px',
-              fontFamily: "'Open Sans', Arial, sans-serif",
-              color: '#ffffff',
-              letterSpacing: '0.5px',
-            }}
-          >
+          <Typography className='card-heading'>
             Product Tracking Details
           </Typography>
         </Box>
